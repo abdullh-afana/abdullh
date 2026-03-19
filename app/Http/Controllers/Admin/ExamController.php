@@ -13,14 +13,16 @@ use App\Models\Grade;
 class ExamController extends Controller
 {
     public function index()
-    {
-        $exams = Exam::with(['subject', 'questions'])->latest()->get();
-    
-    // جلب المواد لاستخدامها في الفلاتر إن وجدت
-    $subjects = Subject::all();
+{
+    // withCount هي السحر الذي سيحول الـ 0 إلى رقم حقيقي
+    $exams = Exam::with(['subject.grade'])
+                 ->withCount('questions') 
+                 ->latest()
+                 ->get();
 
+    $subjects = Subject::all();
     return view('admin.exams.index', compact('exams', 'subjects'));
-    }
+}
 
     public function create()
     {
@@ -47,11 +49,13 @@ class ExamController extends Controller
     // ... ربط الأسئلة ...
 }
 
-    public function show($id)
-    {
-        $exam = Exam::with(['questions.options', 'subject.grade'])->findOrFail($id);
-        return view('admin.exams.show', compact('exam'));
-    }
+    public function show(Exam $exam)
+{
+    // جلب الأسئلة المرتبطة فعلياً بهذا الاختبار من الجدول الوسيط
+    $questions = $exam->questions; 
+    
+    return view('admin.exams.show', compact('exam', 'questions'));
+}
 
     public function edit($id)
     {

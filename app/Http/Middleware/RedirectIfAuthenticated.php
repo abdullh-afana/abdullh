@@ -13,15 +13,22 @@ class RedirectIfAuthenticated
     /**
      * التعديل هنا يجعل التوجيه يعتمد على الرتبة (Role)
      */
-    public function handle(Request $request, Closure $next, string ...$guards): Response
+    public function handle(Request $request, Closure $next, string ...$guards)
 {
     $guards = empty($guards) ? [null] : $guards;
 
     foreach ($guards as $guard) {
         if (Auth::guard($guard)->check()) {
-            // إذا كان المستخدم مسجلاً، نرسله للرابط الرئيسي "/" 
-            // والرابط الرئيسي في web.php هو من سيقرر أين يذهب بناءً على رتبته
-            return redirect('/'); 
+            $user = Auth::user();
+
+            // فحص الرتبة وتوجيه مباشر للمسار
+            if ($user->hasRole('admin')) {
+                return redirect('/admin/dashboard');
+            } 
+            
+            if ($user->hasRole('student')) {
+                return redirect('/student/dashboard');
+            }
         }
     }
 

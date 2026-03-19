@@ -14,18 +14,20 @@ public function index()
 {
     // 1. الإحصائيات العلوية
     $stats = [
-        'students_count' => User::count(),
+        'students_count'  => User::count(),
         'subjects_count'  => Subject::count(),
         'exams_count'     => Exam::count(),
         'questions_count' => Question::count(),
     ];
 
-    // 2. أحدث الاختبارات مع عد الأسئلة
+    // 2. أحدث الاختبارات مع عد الأسئلة (استخدمت latestExams للداشبورد)
     $latestExams = Exam::with('subject')
-    ->withCount('questions') // هذا السطر هو الذي يملأ متغير questions_count
-    ->latest()
-    ->take(5)
-    ->get();
+        ->withCount('questions') 
+        ->latest()
+        ->take(5)
+        ->get();
+
+        $exams = Exam::withCount('questions')->get();
 
     // 3. أحدث المواد
     $latestSubjects = Subject::with(['grade', 'units'])
@@ -38,6 +40,7 @@ public function index()
     $lastExam     = Exam::latest()->first();
     $lastQuestion = Question::with('unit')->latest()->first();
 
+    // السطر الوحيد للـ return يجب أن يكون في النهاية ويشير للداشبورد
     return view('admin.dashboard', compact(
         'stats', 
         'latestExams', 

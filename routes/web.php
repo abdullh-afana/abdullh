@@ -16,7 +16,9 @@ use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ResultController;
-
+Route::get('/', function () {
+    return redirect('/login');
+});
 // 1. التوجيه عند الدخول
 Route::get('/', function () {
     if (!auth()->check()) return redirect()->route('login');
@@ -25,8 +27,10 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// 2. مسارات المسؤول (Admin)
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+// 2.   ****** مسارات المسؤول في حال ما زبطو المسارات الي تحت نرجع لهدول(Admin)  ************
+
+
+/*Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('grades', GradeController::class);
     Route::resource('subjects', SubjectController::class);
@@ -37,7 +41,33 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('get-units/{subjectId}', [QuestionController::class, 'getUnits']);
     Route::get('/admin/results', [App\Http\Controllers\Admin\ResultController::class, 'index'])->name('admin.results');
     Route::delete('/admin/questions/{id}', [App\Http\Controllers\Admin\QuestionController::class, 'destroy'])->name('admin.questions.destroy');
+
 });
+*/
+
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    
+    // الداشبورد الرئيسية
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // المصادر (Resources)
+    Route::resource('grades', GradeController::class);
+    Route::resource('subjects', SubjectController::class);
+    Route::resource('units', UnitController::class);
+    Route::resource('questions', QuestionController::class);
+    Route::resource('exams', ExamController::class);
+
+    // النتائج (تم حذف كلمة admin المكررة لأنها موجودة في الـ prefix)
+    Route::get('results', [ResultController::class, 'index'])->name('results.index');
+
+    // روابط الأجاكس والعمليات الإضافية
+    Route::get('get-units/{subjectId}', [QuestionController::class, 'getUnits'])->name('getUnits');
+    
+    // ملاحظة: الـ Resource الخاص بالأسئلة يغطي عملية الـ destroy تلقائياً 
+    // لكن إذا أردت تخصيصها اتركها هكذا بدون بادئة admin مكررة:
+    // Route::delete('questions/{id}', [QuestionController::class, 'destroy'])->name('questions.custom_destroy');
+});
+
 
 // 3. مسارات الطالب (Student) - تم إضافة مسار Submit المفقود
 Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')->group(function () {
@@ -63,6 +93,9 @@ Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')
 
     // مسار عرض صفحة الاختبار
     // مسار الاختبار الموحد
+
+        // تعريف مسار صفحة تفاصيل النتيجة بتصميم زميلك
+Route::get('/student/exam-result/{id}', [App\Http\Controllers\Student\ExamController::class, 'showResult'])->name('exam.result.show');
 Route::get('/quiz/{unit_id}', function ($unit_id) {
     $unit = \App\Models\Unit::findOrFail($unit_id);
     $questions = \App\Models\Question::where('unit_id', $unit_id)->get();

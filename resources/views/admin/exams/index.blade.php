@@ -42,7 +42,7 @@
     @forelse($exams as $exam)
     <section class="exam-card reveal mb-4 shadow-sm p-3 bg-white rounded">
         <div class="exam-head">
-            <span class="status-pill bg-success text-white">نشط</span>
+           
             <div class="exam-title">
                 <div class="exam-icon doc"><i class="bi bi-file-earmark-text"></i></div>
                 <div>
@@ -63,7 +63,7 @@
         <div class="exam-stats">
             <div class="stat-box">
                 <div class="stat-label"><i class="bi bi-question-circle"></i> عدد الأسئلة</div>
-                <strong>{{ $exam->questions_count }} أسئلة</strong>
+                {{ $exam->questions_count }} أسئلة
             </div>
             <div class="stat-box">
                 <div class="stat-label"><i class="bi bi-clock"></i> المدة</div>

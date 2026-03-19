@@ -1,4 +1,4 @@
-@extends('layouts.student')
+<!--  @extends('layouts.student')
 
 @section('content')
 <div class="container py-5">
@@ -69,3 +69,4 @@
     .table thead th { border: none; color: #6c757d; font-size: 0.9rem; }
 </style>
 @endsection
+-->

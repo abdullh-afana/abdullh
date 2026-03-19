@@ -1,6 +1,4 @@
 /* home.css */
-
-
 body.page-home {
   font-family: 'Noto Naskh Arabic', serif !important;
   margin: 0;
@@ -6243,109 +6241,6 @@ body.page-admin-questions .question-card:hover {
   box-shadow: 0 18px 36px rgba(15, 23, 42, 0.14);
 }
 
-
-    /* تنسيقات إضافية لضمان ظهور التصميم الجديد فوراً */
-    .page-admin-grades .grades-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 20px;
-        padding: 20px 0;
-    }
-
-    
-
-    
-
-    .grade-card {
-        background: #ffffff;
-        border-radius: 16px;
-        padding: 25px;
-        position: relative;
-        transition: all 0.3s ease;
-        border: 1px solid #f0f0f0;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-    }
-
-    .grade-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 24px rgba(0,0,0,0.08);
-        border-color: #6366f1;
-    }
-
-    .card-actions {
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        display: flex;
-        gap: 8px;
-    }
-
-    .icon-btn {
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: none;
-        transition: 0.2s;
-    }
-
-    .icon-btn.edit { background: #eef2ff; color: #6366f1; }
-    .icon-btn.delete { background: #fff1f2; color: #f43f5e; }
-    
-    .icon-btn:hover { transform: scale(1.1); }
-
-    .card-icon {
-        width: 50px;
-        height: 50px;
-        background: linear-gradient(135deg, #6366f1, #a855f7);
-        color: white;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        margin-bottom: 15px;
-    }
-
-    .pill {
-        display: inline-block;
-        padding: 4px 12px;
-        border-radius: 50px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        background: #e0e7ff;
-        color: #4338ca;
-        margin-top: 10px;
-    }
-
-    .pill.middle { background: #fef3c7; color: #92400e; }
-    .pill.alt { background: #dcfce7; color: #166534; }
-
-    .card-footer {
-        margin-top: 20px;
-        padding-top: 15px;
-        border-top: 1px solid #f8fafc;
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.85rem;
-        color: #64748b;
-    }
-
-    .add-btn {
-        background: linear-gradient(135deg, #6366f1, #a855f7);
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 10px;
-        font-weight: 600;
-        transition: 0.3s;
-    }
-
-
-
-
 body.page-admin-questions .q-head {
   display: flex;
   justify-content: space-between;
@@ -8486,29 +8381,6 @@ body.page-student-profile .logo {
   height: 45px;
 }
 
-
-    /* كود تعويضي لضمان ظهور الكروت فوراً */
-    .subject-card {
-        background: #fff;
-        border-radius: 15px;
-        padding: 30px;
-        position: relative;
-        overflow: hidden;
-        transition: 0.3s;
-        border: 1px solid #eee !important;
-        text-align: center;
-    }
-    .subject-card:hover { transform: translateY(-5px); shadow: 0 10px 20px rgba(0,0,0,0.05); }
-    
-    .card-corner-math { background: #ff7675; position: absolute; top: 0; left: 0; width: 60px; height: 60px; clip-path: polygon(0 0, 100% 0, 0 100%); }
-    .card-corner-science { background: #55efc4; position: absolute; top: 0; left: 0; width: 60px; height: 60px; clip-path: polygon(0 0, 100% 0, 0 100%); }
-    .card-corner-ar { background: #74b9ff; position: absolute; top: 0; left: 0; width: 60px; height: 60px; clip-path: polygon(0 0, 100% 0, 0 100%); }
-    
-    .icon-box { position: absolute; top: 8px; left: 8px; color: white; font-size: 1.2rem; }
-    .subject-title { margin-top: 40px; font-size: 1.2rem; color: #2d3436; }
-    .start-btn { color: #7c3aed; font-weight: bold; text-decoration: none; justify-content: center; margin-top: 20px; display: flex; }
-
-
 body.page-student-profile .brand-title {
   font-weight: 700;
   font-size: 20px;
@@ -8535,13 +8407,6 @@ body.page-student-profile .profile-avatar {
   font-size: 28px;
 }
 
-
-    /* تنسيق إضافي لضمان جودة التصميم */
-    .unit-card { transition: 0.3s; border-right: 5px solid #7c3aed !important; }
-    .unit-card:hover { transform: scale(1.01); box-shadow: 0 5px 15px rgba(0,0,0,0.05) !important; }
-    .btn-start:hover { background-color: #6d28d9 !important; transform: translateY(-2px); }
-
-
 /* student header (shared) */
 body:is(.page-dashboard-student, .page-subject, .page-units, .page-quiz, .page-results, .page-student-results, .page-student-profile) .student-header {
   background: #fdfdff !important;
@@ -8553,17 +8418,6 @@ body:is(.page-dashboard-student, .page-subject, .page-units, .page-quiz, .page-r
 body:is(.page-dashboard-student, .page-subject, .page-units, .page-quiz, .page-results, .page-student-results, .page-student-profile) .student-header:hover {
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.1);
 }
-
-
-    /* دمج استايلات صديقك مع لمساتنا */
-    .answer-option { cursor: pointer; transition: 0.2s; background: #fdfdfd; }
-    .answer-option:hover { background: #f0f4ff; border-color: #7c3aed !important; }
-    .answer-option input[type="radio"] { width: 20px; height: 20px; cursor: pointer; }
-    .answer-option input[type="radio"]:checked + .option-text { color: #7c3aed; font-weight: bold; }
-    .timer-dot { width: 10px; height: 10px; background-color: #ff4757; border-radius: 50%; display: inline-block; animation: blink 1s infinite; }
-    @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-    .question-card { border: 1px solid #eee !important; }
-
 
 body:is(.page-dashboard-student, .page-subject, .page-units, .page-quiz, .page-results, .page-student-results, .page-student-profile) .header-left {
   display: flex;
@@ -8586,19 +8440,6 @@ body:is(.page-subject, .page-units, .page-quiz, .page-results, .page-student-res
   min-height: 48px;
   flex-wrap: wrap;
 }
-
-
-
-
-
-    .stat-card { transition: transform 0.3s ease; cursor: default; }
-    .stat-card:hover { transform: translateY(-10px); }
-    .action-card { transition: all 0.3s ease; }
-    .action-card:hover { transform: scale(1.02); box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important; }
-    .list-group-item { transition: background 0.2s; border-bottom: 1px solid #f8f9fa; }
-    .list-group-item:hover { background-color: #fbfbff; }
-    .icon-circle { width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; }
-
 
 body:is(.page-subject, .page-units, .page-quiz, .page-results, .page-student-results, .page-student-profile) .back-link-inline {
   margin-inline-start: auto;

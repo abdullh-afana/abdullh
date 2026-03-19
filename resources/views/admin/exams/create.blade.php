@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 
 @section('title', 'إنشاء اختبار جديد')
-
 @section('body-class', 'page-admin-exam-create')
 
 @section('content')
@@ -26,6 +25,7 @@
 <form action="{{ route('admin.exams.store') }}" method="POST">
     @csrf
     <section class="create-layout">
+        {{-- ملخص الاختبار الجانبي --}}
         <aside class="summary-card">
             <h6>ملخص الاختبار</h6>
             <div class="summary-item">
@@ -40,8 +40,13 @@
                 <span>الوحدات المختارة</span>
                 <strong id="selected-units-count">0</strong>
             </div>
+            <div class="summary-item">
+                <span>الحالة</span>
+                <strong class="text-primary">مسودة</strong>
+            </div>
         </aside>
 
+        {{-- نموذج الإدخال الرئيسي --}}
         <section class="form-card">
             @if(session('error'))
                 <div class="alert alert-danger mb-4">{{ session('error') }}</div>
@@ -66,7 +71,7 @@
                         <option value="">اختر المادة</option>
                         @foreach($subjects as $subject)
                             <option value="{{ $subject->id }}" data-grade="{{ $subject->grade_id }}">
-                                {{ $subject->name }} ({{ $subject->grade->name ?? '' }})
+                                {{ $subject->name }}
                             </option>
                         @endforeach
                     </select>
@@ -92,15 +97,18 @@
 
             <div class="form-row single mt-4">
                 <div>
-                    <label class="form-label fw-bold">اختر الوحدات (يجب اختيار الوحدات لتوليد الأسئلة)</label>
+                    <label class="form-label fw-bold">اختر الوحدات (تظهر الوحدات بعد اختيار المادة)</label>
                     <div class="unit-grid" id="unit-container">
                         @foreach($units as $unit)
-                        <label class="unit-card reveal" data-subject="{{ $unit->subject_id }}">
+                        <label class="unit-card reveal" data-subject="{{ $unit->subject_id }}" style="display: none;">
                             <input type="checkbox" name="unit_ids[]" value="{{ $unit->id }}" class="unit-checkbox">
                             <div class="unit-title">{{ $unit->name }}</div>
-                            <div class="unit-meta">الوحدة رقم {{ $unit->id }}</div>
+                            <div class="unit-meta">الوحدة رقم {{ $loop->iteration }}</div>
                         </label>
                         @endforeach
+                        <div id="no-subject-msg" class="text-muted p-3 border rounded text-center w-100">
+                            يرجى اختيار مادة دراسية أولاً لتظهر الوحدات المتاحة
+                        </div>
                     </div>
                 </div>
             </div>
@@ -113,36 +121,46 @@
 </form>
 
 <script>
-    // كود بسيط لتحديث الملخص الجانبي وفلترة الوحدات
     document.addEventListener('DOMContentLoaded', function() {
         const qInput = document.getElementById('input-q-count');
         const dInput = document.getElementById('input-duration');
         const subjectSelect = document.getElementById('subject-select');
         const unitCards = document.querySelectorAll('.unit-card');
         const checkboxes = document.querySelectorAll('.unit-checkbox');
+        const noSubjectMsg = document.getElementById('no-subject-msg');
 
-        // تحديث الأرقام في الملخص
+        // 1. تحديث الأرقام في الملخص الجانبي فورياً
         qInput.addEventListener('input', () => document.getElementById('summary-q-count').innerText = qInput.value);
         dInput.addEventListener('input', () => document.getElementById('summary-duration').innerText = dInput.value + ' دقيقة');
 
-        // فلترة الوحدات بناءً على المادة المختارة
+        // 2. فلترة الوحدات بناءً على المادة المختارة
         subjectSelect.addEventListener('change', function() {
             const selectedSubject = this.value;
+            let found = false;
+
             unitCards.forEach(card => {
-                if (card.dataset.subject == selectedSubject || selectedSubject === "") {
+                if (card.dataset.subject == selectedSubject) {
                     card.style.display = 'block';
+                    found = true;
                 } else {
                     card.style.display = 'none';
-                    card.querySelector('input').checked = false;
+                    card.querySelector('input').checked = false; // إلغاء تحديد الوحدات المخفية
                 }
             });
+
+            // إخفاء أو إظهار رسالة التنبيه
+            noSubjectMsg.style.display = (found || selectedSubject === "") ? 'none' : 'block';
+            if(selectedSubject === "") noSubjectMsg.style.display = 'block';
+            
+            // إعادة تصفير عداد الوحدات المختارة عند تغيير المادة
+            document.getElementById('selected-units-count').innerText = 0;
         });
 
-        // عد الوحدات المختارة
+        // 3. تحديث عداد الوحدات المختارة في الملخص
         checkboxes.forEach(box => {
             box.addEventListener('change', () => {
-                const checked = document.querySelectorAll('.unit-checkbox:checked').length;
-                document.getElementById('selected-units-count').innerText = checked;
+                const checkedCount = document.querySelectorAll('.unit-checkbox:checked').length;
+                document.getElementById('selected-units-count').innerText = checkedCount;
             });
         });
     });

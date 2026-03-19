@@ -8,9 +8,11 @@ class Exam extends Model
 {
 protected $guarded = [];
 
-    public function questions() {
-        return $this->belongsToMany(Question::class);
-    }
+    public function questions()
+{
+    // تأكد أن اسم الجدول هنا 'exam_question' كما يظهر في الصورة عندك
+    return $this->belongsToMany(Question::class, 'exam_question', 'exam_id', 'question_id');
+}
 
     // Accessor for questions_count
     public function getQuestionsCountAttribute()

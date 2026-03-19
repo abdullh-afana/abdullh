@@ -1,0 +1,22 @@
+/* توحيد الخط والألوان مع تصميم صديقك */
+body.page-home {
+    font-family: 'Noto Kufi Arabic', sans-serif !important;
+}
+
+.card {
+    border-radius: 15px !important;
+    border: none !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08) !important;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #7c3aed, #2563eb) !important;
+    border: none !important;
+    border-radius: 50px !important;
+}
+
+/* تنسيق سجل النتائج المخصص */
+.table thead {
+    background: #EFF4FE !important;
+    color: #2563eb;
+}

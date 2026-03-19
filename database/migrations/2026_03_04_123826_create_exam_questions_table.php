@@ -9,14 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-Schema::create('exam_question', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('exam_id')->constrained()->onDelete('cascade');
-    $table->foreignId('question_id')->constrained()->onDelete('cascade');
-});
-    }
+   public function up()
+{
+    Schema::create('exam_question', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('exam_id')->constrained()->onDelete('cascade');
+        $table->foreignId('question_id')->constrained()->onDelete('cascade');
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.
